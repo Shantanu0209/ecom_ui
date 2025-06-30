@@ -25,7 +25,7 @@ const Products = () => {
       setLoading(true);
       const response = await fetch("https://fakestoreapi.com/products/");
       if (componentMounted) {
-        setData(await response.clone().json());
+        setData(await response).clone();
         setFilter(await response.json());
         setLoading(false);
       }
@@ -83,27 +83,27 @@ const Products = () => {
           </button>
           <button
             className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("men's clothing")}
+            onClick={() => filterProduct("Water Colour Paintings")}
           >
-            Men's Clothing
+            Water Colour Paintings
           </button>
           <button
             className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("women's clothing")}
+            onClick={() => filterProduct("Canvas Paintings")}
           >
-            Women's Clothing
+            Canvas Paintings
           </button>
           <button
             className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("jewelery")}
+            onClick={() => filterProduct("Pottery")}
           >
-            Jewelery
+            Pottery
           </button>
           <button
             className="btn btn-outline-dark btn-sm m-2"
-            onClick={() => filterProduct("electronics")}
+            onClick={() => filterProduct("Acrylic Paintings")}
           >
-            Electronics
+            Acrylic Paintings
           </button>
         </div>
 

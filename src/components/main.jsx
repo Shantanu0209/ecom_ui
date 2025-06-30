@@ -15,9 +15,10 @@ const Home = () => {
             <div className="container">
               <h5 className="card-title fs-1 text fw-lighter">New Season Arrivals</h5>
               <p className="card-text fs-5 d-none d-sm-block ">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
+                Discover MuseMarket’s Fresh Arrivals!
+                Explore our latest collection of handcrafted art and lifestyle products, designed for the new season. 
+                From unique decor to wearable art, each item is carefully curated to inspire. 
+                Celebrate creativity and style with our newest arrivals — made with passion, precision, and a touch of elegance.
               </p>
             </div>
           </div>
