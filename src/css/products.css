@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css?family=Calibri:400,300,700');
+
+body {
+  font-family: 'Calibri', sans-serif !important;
+  background-color: #f9f3ef;
+}
+
+.product-wrapper {
+  border-radius: 12px;
+  background-color: #fff3e6;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.product-img {
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.product-img > span {
+  background-color: #5d4037;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 6px;
+}
+
+.product-action {
+  bottom: 0px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.product-wrapper:hover .product-action {
+  bottom: 20px;
+  opacity: 1;
+}
+
+.product-action-style {
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  padding: 10px 6px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.product-action-style a {
+  color: #7b4b2a;
+  padding: 0 10px;
+  font-size: 18px;
+  transition: color 0.2s ease;
+}
+
+.product-action-style a:hover {
+  color: #d2691e;
+}
+
+
+
+.category-card {
+  background-color: #fffaf5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #f0e6dc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.category-image-container {
+  height: 180px;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.category-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.carousel-arrow {
+  background: #fff8f0;
+  color: #a36031;
+  border: 1px solid #d2b48c;
+  border-radius: 50%;
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-arrow.left {
+  left: 10px;
+}
+
+.carousel-arrow.right {
+  right: 10px;
+}
+

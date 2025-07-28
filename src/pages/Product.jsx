@@ -4,19 +4,25 @@ import { Link, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
-
+import "../css/showProduct.css";
 import { Footer, Navbar } from "../components";
-
+import Slider from "react-slick";
+import { increment } from "../common/constants"; // Assuming increment is defined in constants
+import toast from "react-hot-toast";
+import "../css/products.css"; // Assuming you have a CSS file for styles
+import ImageCarousel from "../components/ImageCarousel";
 const Product = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState({});
   const [similarProducts, setSimilarProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
+    console.log("Adding product to cart:", product);
     dispatch(addCart(product));
   };
 
@@ -27,6 +33,13 @@ const Product = () => {
       const response = await fetch(`https://fakestoreapi.com/products/${id}`);
       const data = await response.json();
       setProduct(data);
+
+      // Assume product.images is an array of image URLs
+      if (data.images && data.images.length > 0) {
+        setSelectedImage(data.images[0]); // default to the first
+      } else {
+        setSelectedImage(data.image); // fallback to single image
+      }
       setLoading(false);
       const response2 = await fetch(
         `https://fakestoreapi.com/products/category/${data.category}`
@@ -61,42 +74,115 @@ const Product = () => {
     );
   };
 
+  // const ShowProduct = () => {
+  //   return (
+  //     <>
+  //       <div className="container my-5 py-2">
+  //         <div className="row">
+  //           <div className="col-md-6 col-sm-12 py-3">
+  //             <img
+  //               className="img-fluid"
+  //               src={product.image}
+  //               alt={product.title}
+  //               width="400px"
+  //               height="400px"
+  //             />
+  //           </div>
+  //           <div className="col-md-6 col-md-6 py-5">
+  //             <h4 className="text-uppercase text-muted">{product.category}</h4>
+  //             <h1 className="display-5">{product.title}</h1>
+  //             <p className="lead ">
+  //               {product.rating && product.rating.rate}{" "}
+  //               <i className="fa fa-star rating"></i>
+  //             </p>
+  //             <h3 className="display-6  my-4">${product.price}</h3>
+  //             <p className="lead">{product.description}</p>
+  //             <button
+  //               className="btn btn-outline-dark"
+  //               onClick={() => addProduct(product)}
+  //             >
+  //               Add to Cart
+  //             </button>
+  //             <Link to="/cart" className="btn btn-dark mx-3">
+  //               Go to Cart
+  //             </Link>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // };
+
   const ShowProduct = () => {
+    const imagesArray = product.images || [product.image]; // fallback if only one image
+
     return (
-      <>
-        <div className="container my-5 py-2">
-          <div className="row">
-            <div className="col-md-6 col-sm-12 py-3">
+      <div className="product-detail-container my-5 py-4 d-flex flex-column flex-md-row ">
+        {/* Left: Images */}
+        <div className="product-images d-flex flex-row flex-md-row align-items-start gap-3">
+          <div className="thumbnail-images d-flex flex-md-column gap-2">
+            {imagesArray.map((img, index) => (
               <img
-                className="img-fluid"
-                src={product.image}
-                alt={product.title}
-                width="400px"
-                height="400px"
+                key={index}
+                src={img}
+                alt={`thumb-${index}`}
+                className={`thumb-img ${
+                  selectedImage === img ? "active-thumb" : ""
+                }`}
+                onClick={() => setSelectedImage(img)}
               />
-            </div>
-            <div className="col-md-6 col-md-6 py-5">
-              <h4 className="text-uppercase text-muted">{product.category}</h4>
-              <h1 className="display-5">{product.title}</h1>
-              <p className="lead">
-                {product.rating && product.rating.rate}{" "}
-                <i className="fa fa-star"></i>
-              </p>
-              <h3 className="display-6  my-4">${product.price}</h3>
-              <p className="lead">{product.description}</p>
-              <button
-                className="btn btn-outline-dark"
-                onClick={() => addProduct(product)}
-              >
-                Add to Cart
-              </button>
-              <Link to="/cart" className="btn btn-dark mx-3">
-                Go to Cart
-              </Link>
-            </div>
+            ))}
+          </div>
+          <div className="main-image">
+            <img
+              className="img-fluid selected-image"
+              src={selectedImage}
+              alt={product.title}
+            />
           </div>
         </div>
-      </>
+
+        {/* Right: Product Info (same as before) */}
+        <div className="product-info ms-md-5 mt-4 mt-md-0">
+          <h1 className="product-title">{product.title}</h1>
+          <p className="text-muted text-uppercase">{product.category}</p>
+          <p className="lead">
+            {product.rating && product.rating.rate}{" "}
+            <i className="fa fa-star rating"></i>
+          </p>
+          <div className="product-price d-flex align-items-center gap-3">
+            <del className="text-muted">
+              ${(product.price * 1.4).toFixed(2)}
+            </del>
+            <h3 className="text-dark">${product.price}</h3>
+          </div>
+          <div className="my-3 d-flex align-items-center gap-2">
+            <label htmlFor="qty" className="fw-bold">
+              Quantity:
+            </label>
+            <input
+              type="number"
+              id="qty"
+              defaultValue={1}
+              min={1}
+              className="form-control quantity-input"
+              style={{ width: "80px" }}
+            />
+          </div>
+          <p className="lead">{product.description}</p>
+          <div className="mt-3 d-flex flex-wrap gap-3">
+            <button
+              className="btn btn-outline-dark"
+              onClick={() => addProduct(product)}
+            >
+              Add to Cart
+            </button>
+            <Link to="/cart" className="btn btn-dark">
+              Go to Cart
+            </Link>
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -123,67 +209,115 @@ const Product = () => {
     );
   };
 
+  // const ShowSimilarProduct = () => {
+  //   return (
+  //     <>
+  //       <div className="py-4 my-4">
+  //         <div className="d-flex">
+  //           {similarProducts.map((item) => {
+  //             return (
+  //               <div key={item.id} className="card mx-4 text-center">
+  //                 <img
+  //                   className="card-img-top p-3"
+  //                   src={item.image}
+  //                   alt="Card"
+  //                   height={300}
+  //                   width={300}
+  //                 />
+  //                 <div className="card-body">
+  //                   <h5 className="card-title">
+  //                     {item.title.substring(0, 15)}...
+  //                   </h5>
+  //                 </div>
+  //                 {/* <ul className="list-group list-group-flush">
+  //                   <li className="list-group-item lead">${product.price}</li>
+  //                 </ul> */}
+  //                 <div className="card-body">
+  //                   <Link
+  //                     to={"/product/" + item.id}
+  //                     className="btn btn-dark m-1"
+  //                   >
+  //                     Buy Now
+  //                   </Link>
+  //                   <button
+  //                     className="btn btn-dark m-1"
+  //                     onClick={() => addProduct(item)}
+  //                   >
+  //                     Add to Cart
+  //                   </button>
+  //                 </div>
+  //               </div>
+  //             );
+  //           })}
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // };
+
   const ShowSimilarProduct = () => {
+    if (!similarProducts || similarProducts.length === 0) return null;
+
+    const settings = {
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      arrows: true,
+      responsive: [
+        { breakpoint: 992, settings: { slidesToShow: 2 } },
+        { breakpoint: 576, settings: { slidesToShow: 1 } },
+      ],
+    };
+
     return (
-      <>
-        <div className="py-4 my-4">
-          <div className="d-flex">
-            {similarProducts.map((item) => {
-              return (
-                <div key={item.id} className="card mx-4 text-center">
+      <div className="my-5 py-4 container">
+        <h4 className="mb-4">You may also like</h4>
+        <Slider {...settings}>
+          {similarProducts.map((item) => (
+            <div key={item.id} className="px-2">
+              <div className="border rounded text-center p-3 h-100">
+                <Link to={`/product/${item.id}`}>
                   <img
-                    className="card-img-top p-3"
                     src={item.image}
-                    alt="Card"
-                    height={300}
-                    width={300}
+                    alt={item.title}
+                    className="img-fluid"
+                    style={{ height: "160px", objectFit: "contain" }}
                   />
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      {item.title.substring(0, 15)}...
-                    </h5>
-                  </div>
-                  {/* <ul className="list-group list-group-flush">
-                    <li className="list-group-item lead">${product.price}</li>
-                  </ul> */}
-                  <div className="card-body">
-                    <Link
-                      to={"/product/" + item.id}
-                      className="btn btn-dark m-1"
-                    >
-                      Buy Now
-                    </Link>
-                    <button
-                      className="btn btn-dark m-1"
-                      onClick={() => addProduct(item)}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
+                </Link>
+                <h6 className="mt-2 text-truncate">{item.title}</h6>
+                <p className="mb-1 text-muted">${item.price}</p>
+                <div className="d-flex justify-content-center gap-2">
+                  <Link
+                    to={`/product/${item.id}`}
+                    className="btn btn-sm btn-dark"
+                  >
+                    View
+                  </Link>
+                  <button
+                    className="btn btn-sm btn-outline-dark"
+                    onClick={() => addProduct(item)}
+                  >
+                    Add
+                  </button>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      </>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
     );
   };
+
   return (
     <>
       <Navbar />
       <div className="container">
         <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
+
         <div className="row my-5 py-5">
-          <div className="d-none d-md-block">
-          <h2 className="">You may also Like</h2>
-            <Marquee
-              pauseOnHover={true}
-              pauseOnClick={true}
-              speed={50}
-            >
-              {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
-            </Marquee>
-          </div>
+          {loading2 ? <Loading2 /> : <ShowSimilarProduct />}
         </div>
       </div>
       <Footer />

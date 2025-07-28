@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "title": "Spiritual Pot Design",
+    "category": "Pottery Paintings",
+    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Adds a rustic charm to your living space.",
+    "price": 430.32
+  },
+  {
+    "id": 2,
+    "title": "Clay Hanging Bell",
+    "category": "Wall Decor",
+    "image": "https://images.unsplash.com/photo-1556910103-1e8e6d8b4e03?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Elegant and traditional piece with vibrant design.",
+    "price": 716.04
+  },
+  {
+    "id": 3,
+    "title": "Mandala Canvas Art",
+    "category": "Terracotta",
+    "image": "https://images.unsplash.com/photo-1549887536-ef7ef4a7d0c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Adds a rustic charm to your living space.",
+    "price": 534.48
+  },
+  {
+    "id": 4,
+    "title": "Traditional Pottery Painting",
+    "category": "Pottery",
+    "image": "https://images.unsplash.com/photo-1465311443501-63f031d5d9ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Painted using eco-friendly colors on natural surfaces.",
+    "price": 927.35
+  },
+  {
+    "id": 5,
+    "title": "Tribal Pot Painting",
+    "category": "Pottery Paintings",
+    "image": "https://images.unsplash.com/photo-1560184897-26a88d3d1a70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Perfect for home decor and gifting purposes.",
+    "price": 871.61
+  },
+  {
+    "id": 6,
+    "title": "Rustic Clay Vase",
+    "category": "Pottery",
+    "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Handcrafted clay vase to enhance your garden.",
+    "price": 520.25
+  },
+  {
+    "id": 7,
+    "title": "Ceramic Flower Pot",
+    "category": "Pottery Paintings",
+    "image": "https://images.unsplash.com/photo-1545249394-066c6c134f67?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Colorful ceramic pot perfect for indoor plants.",
+    "price": 245.15
+  },
+  {
+    "id": 8,
+    "title": "Decorative Terracotta Jar",
+    "category": "Terracotta",
+    "image": "https://images.unsplash.com/photo-1590080877789-cdb875cd7c44?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+    "description": "Traditional jar made of terracotta clay.",
+    "price": 665.40
+  }
+  
+]
